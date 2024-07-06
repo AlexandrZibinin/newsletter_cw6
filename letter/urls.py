@@ -2,7 +2,11 @@ from letter.apps import LetterConfig
 from django.urls import path
 
 from letter.views import (
-    LetterCreateView, LetterListView, LetterUpdateView, LetterDetailView, LetterDeleteView,
+    LetterCreateView,
+    LetterListView,
+    LetterUpdateView,
+    LetterDetailView,
+    LetterDeleteView,
 )
 
 app_name = LetterConfig.name

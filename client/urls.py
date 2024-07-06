@@ -3,7 +3,10 @@ from django.urls import path
 
 from client.views import (
     ClientCreateView,
-    ClientListView, ClientDetailView, ClientUpdateView, ClientDeleteView,
+    ClientListView,
+    ClientDetailView,
+    ClientUpdateView,
+    ClientDeleteView,
 )
 
 app_name = ClientConfig.name

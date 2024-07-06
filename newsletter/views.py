@@ -36,9 +36,6 @@ class NewsletterDeleteView(DeleteView):
     success_url = reverse_lazy("newsletter:list")
 
 
-
-
-
 def index(request):
 
-    return render(request, 'base.html')
+    return render(request, "base.html")

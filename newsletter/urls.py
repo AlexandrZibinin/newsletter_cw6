@@ -7,8 +7,7 @@ from newsletter.views import (
     NewsletterUpdateView,
     NewsletterDeleteView,
     NewsletterListView,
-
-    index
+    index,
 )
 
 app_name = NewsletterConfig.name
@@ -20,5 +19,4 @@ urlpatterns = [
     path("newsletter/list/<int:pk>/", NewsletterDetailView.as_view(), name="detail"),
     path("newsletter/list/<int:pk>/", NewsletterUpdateView.as_view(), name="update"),
     path("newsletter/list/<int:pk>/", NewsletterDeleteView.as_view(), name="delete"),
-
 ]
