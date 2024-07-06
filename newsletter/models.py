@@ -15,7 +15,7 @@ class Newsletter(models.Model):
         max_length=10, choices=PERIOD_SEND_CHOICES, verbose_name="период отправки"
     )
     status = models.BooleanField(verbose_name="статус отправки")
-    client = models.ManyToManyField("Client", verbose_name="получатель")
+    client = models.ManyToManyField("client.Client", verbose_name="получатель")
     message = models.ForeignKey(
         "letter.Letter",
         on_delete=models.CASCADE,
@@ -32,21 +32,5 @@ class Newsletter(models.Model):
         verbose_name_plural = "Рассылки"
 
 
-class Client(models.Model):
-    full_name = models.CharField(
-        max_length=100, blank=False, null=False, verbose_name="ФИО"
-    )
-    email = models.EmailField(
-        max_length=100, blank=False, null=False, verbose_name="Электронная почта"
-    )
-    comment = models.CharField(
-        max_length=100, blank=True, null=True, verbose_name="Комментарий"
-    )
 
-    def __str__(self):
-        return f"{self.full_name}"
-
-    class Meta:
-        verbose_name = "Клиент"
-        verbose_name_plural = "Клиенты"
 

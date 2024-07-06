@@ -8,13 +8,13 @@ from django.views.generic import (
     DeleteView,
 )
 
-from newsletter.models import Newsletter, Client
+from newsletter.models import Newsletter
 
 
 class NewsletterCreateView(CreateView):
     model = Newsletter
     fields = "__all__"
-    success_url = reverse_lazy("newsletters:list")
+    success_url = reverse_lazy("newsletter:list")
 
 
 class NewsletterListView(ListView):
@@ -28,38 +28,15 @@ class NewsletterDetailView(DetailView):
 class NewsletterUpdateView(UpdateView):
     model = Newsletter
     fields = "__all__"
-    success_url = reverse_lazy("newsletters:list")
+    success_url = reverse_lazy("newsletter:list")
 
 
 class NewsletterDeleteView(DeleteView):
     model = Newsletter
-    success_url = reverse_lazy("newsletters:list")
+    success_url = reverse_lazy("newsletter:list")
 
 
-class ClientCreateView(CreateView):
-    model = Client
-    fields = "__all__"
-    success_url = reverse_lazy("clients:list")
 
-
-class ClientListView(ListView):
-    model = Client
-
-
-class ClientDetailView(DetailView):
-    model = Client
-    success_url = reverse_lazy("clients:list")
-
-
-class ClientUpdateView(UpdateView):
-    model = Client
-    fields = "__all__"
-    success_url = reverse_lazy("clients:list")
-
-
-class ClientDeleteView(DeleteView):
-    model = Client
-    success_url = reverse_lazy("clients:list")
 
 
 def index(request):
