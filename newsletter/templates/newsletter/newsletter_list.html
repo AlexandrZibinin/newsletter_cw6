@@ -3,29 +3,36 @@
 {% block content %}
     <p>
     <div class="container">
-        <div class="row text-center">
-            <div class="col">
-                <a class="btn btn-primary" href="{% url 'newsletter:create' %}" role="button">create newsletter</a>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-4">
+                    <a class="btn btn-primary" href="{% url 'newsletter:create' %}" role="button">Создать рассылку</a>
+                </div>
             </div>
-            <table class="table">
-                <thead>
+            <hr>
+            <div class="row">
+                <div class="col-8">
+                    <table class="table table-striped">
+                        <thead>
 
-                </thead>
-                <tbody>
-                    {% for newsletter in object_list %}
-                        <tr>
-                            <th scope="row">{{ newsletter.pk }}</th>
-                            <td>{{ newsletter.first_send }}</td>
-                            <td>{{ newsletter.period }}</td>
-                            <td>{{ newsletter.status }}</td>
-                            <td>{{ newsletter.message.title }}</td>
-                            <td><a class="btn btn-primary" href="{% url 'newsletter:detail' newsletter.pk %}" role="button">detail</a></td>
-                            <td><a class="btn btn-primary" href="{% url 'newsletter:update' newsletter.pk %}" role="button">update</a></td>
-                            <td><a class="btn btn-primary" href="{% url 'newsletter:delete' newsletter.pk %}" role="button">delete</a></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody>
+                            {% for newsletter in object_list %}
+                                <tr>
+                                    <th scope="row">{{ newsletter.pk }}</th>
+                                    <td>{{ newsletter.first_send }}</td>
+                                    <td>{{ newsletter.period }}</td>
+                                    <td>{{ newsletter.status }}</td>
+                                    <td>{{ newsletter.message.title }}</td>
+                                    <td><a class="btn btn-primary" href="{% url 'newsletter:detail' newsletter.pk %}" role="button">Подробнее</a>
+                                    <a class="btn btn-primary" href="{% url 'newsletter:update' newsletter.pk %}" role="button">Редактировать</a>
+                                    <a class="btn btn-primary" href="{% url 'newsletter:delete' newsletter.pk %}" role="button">Удалить</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     </p>

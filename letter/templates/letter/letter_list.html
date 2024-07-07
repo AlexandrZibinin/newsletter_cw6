@@ -1,28 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <p>
     <div class="container">
-    <div class="row text-center">
-        <div class="col">
-            <a class="btn btn-primary" href="{% url 'letter:create' %}" role="button">create letter</a>
-        </div>
-        {% for letter in object_list %}
-        <div class="col-3">
-            <div class="card mb-4 box-shadow">
-                <div class="card-header">
-                    <h1 class="card-title pricing-card-title">{{ letter.title }}</h1>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-4">
+                    <a class="btn btn-primary" href="{% url 'letter:create' %}" role="button">Создать новое письмо</a>
                 </div>
-                <div class="card-body">
-
-                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-
-                        <li>- {{letter.body |slice:'100'}}</li>
-
-                    </ul>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-8">
+                    <table class="table table-striped">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            {% for letter in object_list %}
+                                <tr>
+                                    <th scope="row">{{ letter.pk }}</th>
+                                    <td>{{ letter.title }}</td>
+                                    <td>{{ letter.body }}</td>
+                                    <td><a class="btn btn-primary" href="{% url 'letter:detail' letter.pk %}" role="button">Подробнее</a>
+                                    <a class="btn btn-primary" href="{% url 'letter:update' letter.pk %}" role="button">Редактировать</a>
+                                    <a class="btn btn-primary" href="{% url 'letter:delete' letter.pk %}" role="button">Удалить</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
-</div>
+    </p>
 {% endblock %}
