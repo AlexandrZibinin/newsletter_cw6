@@ -13,7 +13,12 @@ from newsletter.models import Newsletter
 
 class NewsletterCreateView(CreateView):
     model = Newsletter
-    fields = "__all__"
+    fields = (
+        "first_send",
+        "period",
+        "client",
+        "message",
+    )
     success_url = reverse_lazy("newsletter:list")
 
 
@@ -27,7 +32,13 @@ class NewsletterDetailView(DetailView):
 
 class NewsletterUpdateView(UpdateView):
     model = Newsletter
-    fields = "__all__"
+    fields = (
+        "first_send",
+        "period",
+        "status",
+        "client",
+        "message",
+    )
     success_url = reverse_lazy("newsletter:list")
 
 
