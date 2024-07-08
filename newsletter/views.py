@@ -8,7 +8,7 @@ from django.views.generic import (
     DeleteView,
 )
 
-from newsletter.models import Newsletter
+from newsletter.models import Newsletter, Mailing
 
 
 class NewsletterCreateView(CreateView):
@@ -48,5 +48,8 @@ class NewsletterDeleteView(DeleteView):
 
 
 def index(request):
-
     return render(request, "base.html")
+
+
+class MailingListView(ListView):
+    model = Mailing

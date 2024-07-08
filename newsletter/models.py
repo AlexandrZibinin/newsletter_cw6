@@ -11,6 +11,13 @@ STATUS_SEND_CHOICES = {
     "on": "Включена",
 }
 
+STATUS_MAILING_CHOICE = {
+    "done": "Успех",
+    "error": "Ошибка",
+}
+
+NULLABLE = {"blank": True, "null": True}
+
 
 class Newsletter(models.Model):
     first_send = models.DateTimeField(
@@ -30,7 +37,7 @@ class Newsletter(models.Model):
         null=False,
         verbose_name="сообщение",
     )
-    # mailing = models.ForeignKey("Mailing", on_delete=models.CASCADE, verbose_name="попытка рассылки")
+
 
     def __str__(self):
         return f"{self.first_send}"
@@ -44,10 +51,11 @@ class Mailing(models.Model):
     last_send = models.DateTimeField(
         auto_now_add=True, verbose_name="дата и время последней отправки"
     )
-    status = models.BooleanField(default=False, verbose_name="статус отправки")
+    status = models.CharField(choices=STATUS_MAILING_CHOICE, verbose_name="статус отправки")
     mail_server_answer = models.CharField(
-        max_length=100, blank=True, null=True, verbose_name="Ответ SMPT сервера"
+        max_length=100, **NULLABLE, verbose_name="Ответ SMPT сервера"
     )
+    mailing = models.ForeignKey("Newsletter", verbose_name="попытка рассылки", on_delete=models.CASCADE, **NULLABLE)
 
     def __str__(self):
         return f"{self.last_send}"
@@ -55,3 +63,4 @@ class Mailing(models.Model):
     class Meta:
         verbose_name = "Попытка рассылки"
         verbose_name_plural = "Попытки рассылок"
+
