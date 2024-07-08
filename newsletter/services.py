@@ -12,14 +12,14 @@ def newsletter_send_email():
     current_datetime = datetime.now(zone)
     print(f"{current_datetime} send")
 
-    mailings = (
-        Newsletter.objects.all().filter(status="on").filter(first_send=current_datetime)
-    )
+    mailings = Newsletter.objects.all().filter(status="on").filter(first_send__lte=current_datetime)
+
 
     for mailing in mailings:
+        print(mailing)
         send_mail(
             subject=mailing.message.title,
-            message=mailing.message.body,
+            message=mailing.message.text,
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[client.email for client in mailing.client.all()],
         )
@@ -28,6 +28,6 @@ def newsletter_send_email():
         elif mailing.period == "week":
             mailing.first_send = current_datetime + timedelta(days=7)
         elif mailing.period == "month":
-            mailing.first_send = current_datetime + timedelta(days=30)
+            mailing.first_send = current_datetime + timedelta(day=30)
 
         mailing.save()

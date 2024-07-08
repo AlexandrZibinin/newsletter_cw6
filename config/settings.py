@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 dot_env = os.path.join(BASE_DIR, ".env")
-load_dotenv(dotenv_path=dot_env)
+load_dotenv(dotenv_path=dot_env, override=True)
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
@@ -63,8 +63,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("NAME"),
-        "USER": "postgres",
-        "PASSWORD": 5770,
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
         "HOST": "localhost",
         "PORT": "5432",
     }

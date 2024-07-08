@@ -21,8 +21,8 @@
                                 <tr>
                                     <th scope="row">{{ newsletter.pk }}</th>
                                     <td>{{ newsletter.first_send }}</td>
-                                    <td>{{ newsletter.period }}</td>
-                                    <td>{{ newsletter.status }}</td>
+                                    <td>{{ newsletter.get_period_display }}</td>
+                                    <td>{{ newsletter.get_status_display }}</td>
                                     <td>{{ newsletter.message.title }}</td>
                                     <td>{{ newsletter.mailing }}</td>
                                     <td><a class="btn btn-primary" href="{% url 'newsletter:detail' newsletter.pk %}" role="button">Подробнее</a>
