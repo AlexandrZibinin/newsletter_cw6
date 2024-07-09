@@ -1,13 +1,12 @@
 from django.urls import reverse_lazy
 from django.views.generic import (
-    TemplateView,
+    TemplateView, ListView,
 )
 from pytils.translit import slugify
 
 from blog.models import Blog
 
 
-class BlogView(TemplateView):
+class BlogListView(ListView):
     model = Blog
 
-    template_name = "blog/index.html"
