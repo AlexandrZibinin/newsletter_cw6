@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -8,41 +9,42 @@ from django.views.generic import (
     DeleteView,
 )
 
+from newsletter.forms import NewsletterForm
 from newsletter.models import Newsletter, Mailing
 
 
-class NewsletterCreateView(CreateView):
+class NewsletterCreateView(LoginRequiredMixin, CreateView):
     model = Newsletter
-    fields = (
-        "first_send",
-        "period",
-        "client",
-        "message",
-    )
+    form_class = NewsletterForm
     success_url = reverse_lazy("newsletter:list")
+    
+    def form_valid(self, form):
+        news = form.save()
+        user = self.request.user
+        news.owner = user
+        news.save()
+        
+        return super().form_valid(form)
 
 
-class NewsletterListView(ListView):
+class NewsletterListView(LoginRequiredMixin, ListView):
     model = Newsletter
 
 
-class NewsletterDetailView(DetailView):
+class NewsletterDetailView(LoginRequiredMixin, DetailView):
     model = Newsletter
 
 
-class NewsletterUpdateView(UpdateView):
+class NewsletterUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Newsletter
-    fields = (
-        "first_send",
-        "period",
-        "status",
-        "client",
-        "message",
-    )
+    form_class = NewsletterForm
     success_url = reverse_lazy("newsletter:list")
+    permission_required = 'newsletter.set_'
+    
+    
 
 
-class NewsletterDeleteView(DeleteView):
+class NewsletterDeleteView(LoginRequiredMixin, DeleteView):
     model = Newsletter
     success_url = reverse_lazy("newsletter:list")
 
@@ -51,5 +53,5 @@ def index(request):
     return render(request, "base.html")
 
 
-class MailingListView(ListView):
+class MailingListView(LoginRequiredMixin, ListView):
     model = Mailing

@@ -37,6 +37,7 @@ class Newsletter(models.Model):
         null=False,
         verbose_name="сообщение",
     )
+    owner = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="Владелец", **NULLABLE)
 
 
     def __str__(self):
@@ -45,6 +46,10 @@ class Newsletter(models.Model):
     class Meta:
         verbose_name = "Рассылка"
         verbose_name_plural = "Рассылки"
+
+        permissions = [
+            ("set_status", "Может менять статус рассылки ")
+        ]
 
 
 class Mailing(models.Model):

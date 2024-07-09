@@ -1,5 +1,7 @@
 from django.db import models
 
+from newsletter.models import NULLABLE
+
 
 class Client(models.Model):
     full_name = models.CharField(
@@ -11,6 +13,8 @@ class Client(models.Model):
     comment = models.CharField(
         max_length=100, blank=True, null=True, verbose_name="Комментарий"
     )
+    owner = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="Владелец", **NULLABLE)
+
 
     def __str__(self):
         return f"{self.full_name}"

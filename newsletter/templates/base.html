@@ -21,6 +21,20 @@
                 <a class="nav-link active" aria-current="page" href="#">Сервис рассылок</a>
                 <a class="nav-link" href="#">Блог</a>
               </div>
+              <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                  <form method="post" action="{% url 'users:logout' %}">
+                      {% csrf_token %}
+                      <button class="p-2 btn btn-outline-primary" type="submit">Выход</button>
+                  </form>
+                  <div>
+                    вход выполнен: {{ user.email }}
+                  </div>
+                {% else %}
+                  <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Вход</a>
+                  <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
+                {% endif %}
+              </div>
             </div>
           </div>
         </nav>
@@ -29,11 +43,13 @@
     <div class="col-12">
       <div class="row">
         <div class="col-4">
+          {% if user.is_authenticated %}
           <div class="btn-group">
             <a href="{% url 'newsletter:list' %}" class="btn btn-primary" role="button">Рассылки</a>
             <a href="{% url 'letter:list' %}" class="btn btn-primary" role="button">Письма</a>
             <a href="{% url 'client:list' %}" class="btn btn-primary" role="button">Клиенты</a>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>

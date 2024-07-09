@@ -9,10 +9,10 @@ readme = "README.md"
 python = "^3.12"
 black = "^24.4.2"
 python-dotenv = "^1.0.1"
-django = "^5.0.6"
 psycopg2-binary = "^2.9.9"
 django-crontab = "^0.7.1"
 pytz = "^2024.1"
+django = "^5.0.6"
 
 
 [build-system]

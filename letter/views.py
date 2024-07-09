@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -7,30 +8,39 @@ from django.views.generic import (
     DeleteView,
 )
 
+from letter.forms import LetterForm
 from letter.models import Letter
 
 
-class LetterCreateView(CreateView):
+class LetterCreateView(CreateView, LoginRequiredMixin):
     model = Letter
-    fields = "__all__"
+    form_class = LetterForm
+    success_url = reverse_lazy("letter:list")
+
+    def form_valid(self, form):
+        letter = form.save()
+        user = self.request.user
+        letter.owner = user
+        letter.save()
+
+        return super().form_valid(form)
+
+
+class LetterListView(LoginRequiredMixin, ListView):
+    model = Letter
+
+
+class LetterDetailView(LoginRequiredMixin, DetailView):
+    model = Letter
     success_url = reverse_lazy("letter:list")
 
 
-class LetterListView(ListView):
+class LetterUpdateView(LoginRequiredMixin, UpdateView):
     model = Letter
-
-
-class LetterDetailView(DetailView):
-    model = Letter
+    form_class = LetterForm
     success_url = reverse_lazy("letter:list")
 
 
-class LetterUpdateView(UpdateView):
-    model = Letter
-    fields = "__all__"
-    success_url = reverse_lazy("letter:list")
-
-
-class LetterDeleteView(DeleteView):
+class LetterDeleteView(LoginRequiredMixin, DeleteView):
     model = Letter
     success_url = reverse_lazy("letter:list")
