@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="#">Сервис рассылок</a>
-                <a class="nav-link" href="#">Блог</a>
+                <a class="nav-link" href="{% url 'blog:blog_list' %}">Блог</a>
               </div>
               <div class="navbar-nav">
                 {% if user.is_authenticated %}

@@ -7,4 +7,5 @@ urlpatterns = [
     path("", include("letter.urls", namespace="letter")),
     path("", include("client.urls", namespace="client")),
     path("users/", include("users.urls", namespace="users")),
+    path("blog/", include("blog.urls", namespace="blog")),
 ]
