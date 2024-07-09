@@ -15,6 +15,7 @@ pytz = "^2024.1"
 django = "^5.0.6"
 pillow = "^10.4.0"
 pytils = "^0.4.1"
+redis = "^5.0.7"
 
 
 [build-system]
