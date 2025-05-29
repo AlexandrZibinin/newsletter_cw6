@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>
+    <div class="container">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-4">
+                    <a class="btn btn-primary" href="{% url 'newsletter:create' %}" role="button">Создать рассылку</a>
+                    <a class="btn btn-primary" href="{% url 'newsletter:list_mailing' %}" role="button">История рассылок</a>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-8">
+                    <table class="table table-striped">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                            {% for newsletter in object_list %}
+                                <tr>
+                                    <th scope="row">{{ newsletter.pk }}</th>
+                                    <td>{{ newsletter.first_send }}</td>
+                                    <td>{{ newsletter.get_period_display }}</td>
+                                    <td>{{ newsletter.get_status_display }}</td>
+                                    <td>{{ newsletter.message.title }}</td>
+                                    <td>{{ newsletter.mailing }}</td>
+                                    <td><a class="btn btn-primary" href="{% url 'newsletter:detail' newsletter.pk %}" role="button">Подробнее</a>
+                                    <a class="btn btn-primary" href="{% url 'newsletter:update' newsletter.pk %}" role="button">Редактировать</a>
+                                    <a class="btn btn-primary" href="{% url 'newsletter:delete' newsletter.pk %}" role="button">Удалить</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </p>
+{% endblock %}

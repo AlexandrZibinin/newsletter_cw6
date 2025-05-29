@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>
+    <div class="container">
+        <div class="col-12">
+            <div>
+                <a class="btn btn-primary" href="{% url 'newsletter:list' %}" role="button">Назад</a>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <table class="table table-striped">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                            {% for mailing in object_list %}
+                                <tr>
+                                    <th scope="row">{{ mailing.pk }}</th>
+                                    <td>{{ mailing.mailing.pk }}</td>
+                                    <td>{{ mailing.last_send }}</td>
+                                    <td>{{ mailing.get_status_display }}</td>
+                                    <td>{{ mailing.mail_server_answer }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </p>
+{% endblock %}

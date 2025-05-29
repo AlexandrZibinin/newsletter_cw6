@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>
+    <div class="container">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-4">
+                    <a class="btn btn-primary" href="{% url 'client:create' %}" role="button">Добавить получателя</a>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-8">
+                    <table class="table table-striped">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            {% for client in object_list %}
+                                <tr>
+                                    <th scope="row">{{ client.pk }}</th>
+                                    <td>{{ client.name }}</td>
+                                    <td>{{ client.email }}</td>
+                                    <td>{{ client.comment }}</td>
+                                    <td><a class="btn btn-primary" href="{% url 'client:detail' client.pk %}" role="button">Подробнее</a>
+                                    <a class="btn btn-primary" href="{% url 'client:update' client.pk %}" role="button">Редактировать</a>
+                                    <a class="btn btn-primary" href="{% url 'client:delete' client.pk %}" role="button">Удалить</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </p>
+{% endblock %}

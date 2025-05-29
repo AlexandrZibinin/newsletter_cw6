@@ -1,0 +1,65 @@
+<!doctype html>
+{% load static %}
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Сервис рассылок писем</title>
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" crossorigin="anonymous">
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
+    <link href="{% static '/css/features.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="col-6">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'newsletter:list' %}">Главная</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#">Сервис рассылок</a>
+                <a class="nav-link" href="{% url 'blog:list' %}">Блог</a>
+              </div>
+              <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                  <form method="post" action="{% url 'users:logout' %}">
+                      {% csrf_token %}
+                      <button class="p-2 btn btn-outline-primary" type="submit">Выход</button>
+                  </form>
+                  <div>
+                    вход выполнен: {{ user.email }}
+                  </div>
+                {% else %}
+                  <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Вход</a>
+                  <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </nav>
+    </div>
+
+    <div class="col-12">
+      <div class="row">
+        <div class="col-4">
+          {% if user.is_authenticated %}
+          <div class="btn-group">
+            <a href="{% url 'newsletter:list' %}" class="btn btn-primary" role="button">Рассылки</a>
+            <a href="{% url 'letter:list' %}" class="btn btn-primary" role="button">Письма</a>
+            <a href="{% url 'client:list' %}" class="btn btn-primary" role="button">Клиенты</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <p>
+      {% block content %}
+      {% endblock %}
+    </p>
+  </div>
+
+
+  </body>
+</html>
